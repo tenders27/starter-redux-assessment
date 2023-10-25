@@ -4,6 +4,7 @@ import {
   fetchSuggestion,
   selectError,
   selectLoading,
+  selectSuggestion,
   // Task 18: Import the `selectSuggestion()` selector from the suggestion slice
 } from './suggestion.slice';
 import './suggestion.css';
@@ -13,11 +14,13 @@ export default function Suggestion() {
   // The component needs to access the `imageUrl` and `caption` properties of the suggestion object.
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
+  const suggestion = useSelector(selectSuggestion);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadSuggestion() {
       // Task 20: Dispatch the fetchSuggestion() action creator
+      dispatch(fetchSuggestion());
     }
     loadSuggestion();
   }, [dispatch]);
@@ -31,8 +34,8 @@ export default function Suggestion() {
     // Task 21: Enable the two JSX lines below needed to display the suggestion on the page
     render = (
       <>
-        {/* <img alt={caption} src={imageUrl} />
-        <p>{imageUrl}</p> */}
+        <img alt={suggestion.caption} src={suggestion.imageUrl} />
+        <p>{suggestion.imageUrl}</p>
       </>
     );
   }
